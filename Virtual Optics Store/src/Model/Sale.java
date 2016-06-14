@@ -32,6 +32,7 @@ public class Sale {
 	public Sale(){
 		super();
 	}
+	
 	public Sale(int saleID, int percentage, Date startDate, Date endDate) {
 		super();
 		this.ID = saleID;
@@ -65,6 +66,11 @@ public class Sale {
 	}
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+	
+	// rest of functions
+	public void addGlasses(Glasses g){
+		this.glasses.add(g);
 	}
 	
 }
