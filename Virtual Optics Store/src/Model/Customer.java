@@ -1,6 +1,10 @@
 package Model;
 
+import java.util.ArrayList;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Customer extends User{
@@ -8,7 +12,9 @@ public class Customer extends User{
 	private double leftSight;
 	private double rightSight;
 	private String email;
-	
+	@OneToMany(mappedBy= "Customer", cascade = CascadeType.ALL)
+	ArrayList<Attempts>attempts;
+
 	//Constructors
 	public Customer(){
 		super();
@@ -42,6 +48,12 @@ public class Customer extends User{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+	public ArrayList<Attempts> getAttempts() {
+		return attempts;
+	}
+
+	public void setAttempts(ArrayList<Attempts> attempts) {
+		this.attempts = attempts;
+	}
 	
 }

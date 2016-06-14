@@ -1,15 +1,19 @@
 package Model;
 
+import java.util.ArrayList;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Glasses {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int gID;
+	private int ID;
 	private String color;
 	private String modelName;
 	private String model;
@@ -19,15 +23,29 @@ public class Glasses {
 	private String material;
 	private int price;
 	private Brand brand;
+	@OneToMany(mappedBy= "Glasses", cascade = CascadeType.ALL)
+	ArrayList<Attempts>attempts;
 	
+	public int getID() {
+		return ID;
+	}
+	public void setID(int iD) {
+		ID = iD;
+	}
+	public ArrayList<Attempts> getAttempts() {
+		return attempts;
+	}
+	public void setAttempts(ArrayList<Attempts> attempts) {
+		this.attempts = attempts;
+	}
 	// Constructors
 	public Glasses(){
 		super();
 	}
-	public Glasses(int gID, String color, String modelName, String model,
+	public Glasses(int ID, String color, String modelName, String model,
 			int convertable, String shape, int type, String material, int price,Brand brand) {
 		super();
-		this.gID = gID;
+		this.ID = ID;
 		this.color = color;
 		this.modelName = modelName;
 		this.model = model;
@@ -40,10 +58,10 @@ public class Glasses {
 	}
 	// Setters and Getters
 	public int getgID() {
-		return gID;
+		return ID;
 	}
 	public void setgID(int gID) {
-		this.gID = gID;
+		this.ID = gID;
 	}
 	public String getColor() {
 		return color;

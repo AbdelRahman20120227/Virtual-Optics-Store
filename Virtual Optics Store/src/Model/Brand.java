@@ -12,8 +12,8 @@ public class Brand {
 	@Id
 	@GeneratedValue
 	private int ID;
-	private String Name;
-	private String Country;
+	private String name;
+	private String country;
 	
 	@OneToMany(mappedBy = "Brand", cascade = CascadeType.ALL)
 	ArrayList<Glasses>glasses;
@@ -23,11 +23,11 @@ public class Brand {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Brand(int ID, String Name, String Country) {
+	public Brand(int ID, String name, String country) {
 		super();
 		this.ID = ID;
-		this.Name = Name;
-		this.Country = Country;
+		this.name = name;
+		this.country = country;
 	}
 
 	// Setters and Getters
@@ -38,10 +38,10 @@ public class Brand {
 		this.ID = ID;
 	}
 	public String getbName() {
-		return Name;
+		return name;
 	}
 	public void setbName(String Name) {
-		this.Name = Name;
+		this.name = Name;
 	}
 	public ArrayList<Glasses> getGlasses() {
 		return glasses;
@@ -50,10 +50,10 @@ public class Brand {
 		this.glasses = glasses;
 	}
 	public String getbCountry() {
-		return Country;
+		return country;
 	}
 	public void setbCountry(String Country) {
-		this.Country = Country;
+		this.country = Country;
 	}
 	
 	// Add glasses to owned store
