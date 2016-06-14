@@ -2,12 +2,14 @@ package Model;
 
 import java.util.ArrayList;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +26,7 @@ public class User {
 	private String phone;
 	private String address;
 	private String gender;
+	@OneToMany(mappedBy = "User", cascade = CascadeType.ALL)
 	private ArrayList<Transaction> transactions;
 	
 	//Constructors
