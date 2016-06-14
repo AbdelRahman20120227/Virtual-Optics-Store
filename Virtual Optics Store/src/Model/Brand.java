@@ -11,9 +11,9 @@ import javax.persistence.OneToMany;
 public class Brand {
 	@Id
 	@GeneratedValue
-	private int bId;
-	private String bName;
-	private String bCountry;
+	private int ID;
+	private String Name;
+	private String Country;
 	
 	@OneToMany(mappedBy = "Brand", cascade = CascadeType.ALL)
 	ArrayList<Glasses>glasses;
@@ -23,31 +23,37 @@ public class Brand {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Brand(int bId, String bName, String bCountry) {
+	public Brand(int ID, String Name, String Country) {
 		super();
-		this.bId = bId;
-		this.bName = bName;
-		this.bCountry = bCountry;
+		this.ID = ID;
+		this.Name = Name;
+		this.Country = Country;
 	}
 
 	// Setters and Getters
 	public int getbId() {
-		return bId;
+		return ID;
 	}
-	public void setbId(int bId) {
-		this.bId = bId;
+	public void setbId(int ID) {
+		this.ID = ID;
 	}
 	public String getbName() {
-		return bName;
+		return Name;
 	}
-	public void setbName(String bName) {
-		this.bName = bName;
+	public void setbName(String Name) {
+		this.Name = Name;
+	}
+	public ArrayList<Glasses> getGlasses() {
+		return glasses;
+	}
+	public void setGlasses(ArrayList<Glasses> glasses) {
+		this.glasses = glasses;
 	}
 	public String getbCountry() {
-		return bCountry;
+		return Country;
 	}
-	public void setbCountry(String bCountry) {
-		this.bCountry = bCountry;
+	public void setbCountry(String Country) {
+		this.Country = Country;
 	}
 	
 	// Add glasses to owned store

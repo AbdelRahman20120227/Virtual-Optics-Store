@@ -14,6 +14,7 @@ public class Admin extends User{
 	public Admin() {
 		super();
 	}
+	
 	public Admin(int ID, String fName, String lName, String password,
 			String phone, String address, String gender, ArrayList<News> news,
 			String userName, Store store) {
