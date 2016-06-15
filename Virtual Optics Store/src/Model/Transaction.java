@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Transaction {
@@ -13,8 +14,11 @@ public class Transaction {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int ID;
+	@ManyToOne
 	private Admin admin;
+	@ManyToOne
 	private Customer customer;
+	@ManyToOne
 	private Glasses glasses;
 	private Date date;
 	
@@ -58,6 +62,7 @@ public class Transaction {
 	}
 	public void setGlasses(Glasses glasses) {
 		this.glasses = glasses;
+		glasses.addTransaction(this);
 	}
 	public Date getDate() {
 		return date;

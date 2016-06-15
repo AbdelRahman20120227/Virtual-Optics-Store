@@ -25,6 +25,8 @@ public class Glasses {
 	private Brand brand;
 	@OneToMany(mappedBy= "Glasses", cascade = CascadeType.ALL)
 	ArrayList<Attempt>attempts;
+	@OneToMany(mappedBy= "Glasses", cascade = CascadeType.ALL)
+	ArrayList<Transaction> transactions;
 	
 	// Constructors
 	public Glasses(){
@@ -117,5 +119,8 @@ public class Glasses {
 	public void addAttempt(Attempt attempt){
 		this.attempts.add(attempt);
 		attempt.setGlasses(this);
+	}
+	public void addTransaction(Transaction transaction){
+		this.transactions.add(transaction);
 	}
 }
