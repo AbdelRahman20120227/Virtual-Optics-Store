@@ -24,20 +24,8 @@ public class Glasses {
 	private int price;
 	private Brand brand;
 	@OneToMany(mappedBy= "Glasses", cascade = CascadeType.ALL)
-	ArrayList<Attempts>attempts;
+	ArrayList<Attempt>attempts;
 	
-	public int getID() {
-		return ID;
-	}
-	public void setID(int iD) {
-		ID = iD;
-	}
-	public ArrayList<Attempts> getAttempts() {
-		return attempts;
-	}
-	public void setAttempts(ArrayList<Attempts> attempts) {
-		this.attempts = attempts;
-	}
 	// Constructors
 	public Glasses(){
 		super();
@@ -57,11 +45,17 @@ public class Glasses {
 		this.brand = brand;
 	}
 	// Setters and Getters
-	public int getgID() {
+	public int getID() {
 		return ID;
 	}
-	public void setgID(int gID) {
-		this.ID = gID;
+	public void setID(int iD) {
+		ID = iD;
+	}
+	public ArrayList<Attempt> getAttempts() {
+		return attempts;
+	}
+	public void setAttempts(ArrayList<Attempt> attempts) {
+		this.attempts = attempts;
 	}
 	public String getColor() {
 		return color;
@@ -119,4 +113,9 @@ public class Glasses {
 		this.brand = brand;
 	}
 	
+	//Rest of methods
+	public void addAttempt(Attempt attempt){
+		this.attempts.add(attempt);
+		attempt.setGlasses(this);
+	}
 }

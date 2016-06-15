@@ -7,48 +7,30 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Attempts {
-	@Id
-	private int gID;
+public class Attempt {
 	
 	@Id
-	private int cID;
-	
+	private int compositeKey;
 	private Date date;
-	
 	@ManyToOne
 	private Customer customer;
-	
 	@ManyToOne 
 	private Glasses glasses;
 	
 	//Constructors
-	public Attempts(){
+	public Attempt(){
 		super();
 	}
-	public Attempts(int gID, int cID, Date date, Customer customer,
+	public Attempt(int gID, int cID, Date date, Customer customer,
 			Glasses glasses) {
 		super();
-		this.gID = gID;
-		this.cID = cID;
 		this.date = date;
 		this.customer = customer;
 		this.glasses = glasses;
+		this.compositeKey = hash();
 	}
 	
 	// Setters And Getters
-	public int getgID() {
-		return gID;
-	}
-	public void setgID(int gID) {
-		this.gID = gID;
-	}
-	public int getcID() {
-		return cID;
-	}
-	public void setcID(int cID) {
-		this.cID = cID;
-	}
 	public Date getDate() {
 		return date;
 	}
@@ -68,4 +50,8 @@ public class Attempts {
 		this.glasses = glasses;
 	}
 	
+	//Rest of methods
+	public int hash(){
+		return customer.getID() + glasses.getID();
+	}
 }

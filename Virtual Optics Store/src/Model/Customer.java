@@ -13,7 +13,7 @@ public class Customer extends User{
 	private double rightSight;
 	private String email;
 	@OneToMany(mappedBy= "Customer", cascade = CascadeType.ALL)
-	ArrayList<Attempts>attempts;
+	ArrayList<Attempt>attempts;
 
 	//Constructors
 	public Customer(){
@@ -27,6 +27,7 @@ public class Customer extends User{
 		this.leftSight = leftSight;
 		this.rightSight = rightSight;
 		this.email = email;
+		this.attempts = new ArrayList<Attempt>();
 	}
 
 	//Setters and Getters
@@ -48,12 +49,17 @@ public class Customer extends User{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public ArrayList<Attempts> getAttempts() {
+	public ArrayList<Attempt> getAttempts() {
 		return attempts;
 	}
 
-	public void setAttempts(ArrayList<Attempts> attempts) {
+	public void setAttempts(ArrayList<Attempt> attempts) {
 		this.attempts = attempts;
 	}
 	
+	//Rest of functions
+	public void addAttempts(Attempt attempt){
+		this.attempts.add(attempt);
+		attempt.setCustomer(this);
+	}
 }

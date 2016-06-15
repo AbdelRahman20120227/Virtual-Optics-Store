@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +24,7 @@ public class User {
 	private String phone;
 	private String address;
 	private String gender;
+	private ArrayList<Transaction> transactions;
 	
 	//Constructors
 	public User(){
@@ -38,6 +41,7 @@ public class User {
 		this.phone = phone;
 		this.address = address;
 		this.gender = gender;
+		this.transactions = new ArrayList<Transaction>();
 	}
 	
 	//Setters And Getters
@@ -82,5 +86,17 @@ public class User {
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+	public ArrayList<Transaction> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(ArrayList<Transaction> transactions) {
+		this.transactions = transactions;
+	}
+	
+	//Rest of functions
+	public void addTransaction(Transaction transaction){
+		this.transactions.add(transaction);
 	}
 }

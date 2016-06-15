@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 
 @Entity
 public class Admin extends User{
+	
 	private ArrayList<News> news;
 	private String userName;
 	private Store store;
@@ -16,10 +17,10 @@ public class Admin extends User{
 	}
 	
 	public Admin(int ID, String fName, String lName, String password,
-			String phone, String address, String gender, ArrayList<News> news,
+			String phone, String address, String gender,
 			String userName, Store store) {
 		super(ID, fName, lName, password, phone, address, gender);
-		this.news = news;
+		this.news = new ArrayList<News>();
 		this.userName = userName;
 		this.store = store;
 	}
@@ -44,7 +45,10 @@ public class Admin extends User{
 		this.store = store;
 	}
 	
-	
-	
+	//rest of functions
+	public void addNews(News news){
+		this.news.add(news);
+		news.setAdmin(this);
+	}
 	
 }
