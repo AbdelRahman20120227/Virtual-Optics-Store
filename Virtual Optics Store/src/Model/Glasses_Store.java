@@ -3,12 +3,18 @@ package Model;
 import java.util.ArrayList;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Glasses_Store {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int ID;
 	@ManyToOne
 	private Glasses glasses;
 	@ManyToOne

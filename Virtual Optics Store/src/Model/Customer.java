@@ -14,20 +14,23 @@ public class Customer extends User{
 	private String email;
 	@OneToMany(mappedBy= "Customer", cascade = CascadeType.ALL)
 	ArrayList<Attempt>attempts;
-
+	@OneToMany(mappedBy = "Customer", cascade = CascadeType.ALL)
+	private ArrayList<Transaction> transactions;
+	
 	//Constructors
 	public Customer(){
 		super();
 	}
 	
-	public Customer(int ID, String fName, String lName, String password,
+	public Customer(String fName, String lName, String password,
 			String phone, String address, String gender, double leftSight,
 			double rightSight, String email) {
-		super(ID, fName, lName, password, phone, address, gender);
+		super(fName, lName, password, phone, address, gender);
 		this.leftSight = leftSight;
 		this.rightSight = rightSight;
 		this.email = email;
 		this.attempts = new ArrayList<Attempt>();
+		this.transactions = new ArrayList<Transaction>();
 	}
 
 	//Setters and Getters
@@ -57,9 +60,20 @@ public class Customer extends User{
 		this.attempts = attempts;
 	}
 	
+	public ArrayList<Transaction> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(ArrayList<Transaction> transactions) {
+		this.transactions = transactions;
+	}
+	
 	//Rest of functions
 	public void addAttempts(Attempt attempt){
 		this.attempts.add(attempt);
 		attempt.setCustomer(this);
+	}
+	public void addTransaction(Transaction transaction){
+		this.transactions.add(transaction);
 	}
 }

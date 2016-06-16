@@ -10,27 +10,30 @@ import javax.persistence.OneToMany;
 @Entity
 public class Admin extends User{
 	
-	@OneToMany (mappedBy = "User" , cascade = CascadeType.ALL)
+	@OneToMany (mappedBy = "Admin" , cascade = CascadeType.ALL)
 	private ArrayList<News> news;
-	@OneToMany (mappedBy = "User" , cascade = CascadeType.ALL)
+	@OneToMany (mappedBy = "Admin" , cascade = CascadeType.ALL)
 	private ArrayList<Admin_Quantity> glasses;
 	private String userName;
 	@ManyToOne
 	private Store store;
-
+	@OneToMany(mappedBy = "Admin", cascade = CascadeType.ALL)
+	private ArrayList<Transaction> transactions;
+	
 	//Constructors
 	public Admin() {
 		super();
 	}
 	
-	public Admin(int ID, String fName, String lName, String password,
+	public Admin(String fName, String lName, String password,
 			String phone, String address, String gender,
 			String userName, Store store) {
-		super(ID, fName, lName, password, phone, address, gender);
+		super(fName, lName, password, phone, address, gender);
 		this.news = new ArrayList<News>();
 		this.glasses = new ArrayList<Admin_Quantity>();
 		this.userName = userName;
 		this.store = store;
+		this.transactions = new ArrayList<Transaction>();
 	}
 	
 	//Getters and Setter
@@ -60,6 +63,14 @@ public class Admin extends User{
 		this.glasses = glasses;
 	}
 	
+	public ArrayList<Transaction> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(ArrayList<Transaction> transactions) {
+		this.transactions = transactions;
+	}
+	
 	//rest of functions
 	public void addNews(News news){
 		this.news.add(news);
@@ -68,6 +79,9 @@ public class Admin extends User{
 	public void addGlasses(Admin_Quantity gs){
 		this.glasses.add(gs);
 		gs.setAdmin(this);
+	}
+	public void addTransaction(Transaction transaction){
+		this.transactions.add(transaction);
 	}
 	
 }

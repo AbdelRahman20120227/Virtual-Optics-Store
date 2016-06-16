@@ -1,19 +1,13 @@
 package Model;
 
-import java.util.ArrayList;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
-@Table
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User {
 	
@@ -26,25 +20,21 @@ public class User {
 	private String phone;
 	private String address;
 	private String gender;
-	@OneToMany(mappedBy = "User", cascade = CascadeType.ALL)
-	private ArrayList<Transaction> transactions;
 	
 	//Constructors
 	public User(){
 		super();
 	}
 	
-	public User(int ID, String fName, String lName, String password,
+	public User(String fName, String lName, String password,
 			String phone, String address, String gender) {
 		super();
-		this.ID = ID;
 		this.fName = fName;
 		this.lName = lName;
 		this.password = password;
 		this.phone = phone;
 		this.address = address;
 		this.gender = gender;
-		this.transactions = new ArrayList<Transaction>();
 	}
 	
 	//Setters And Getters
@@ -89,17 +79,5 @@ public class User {
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
-	}
-	public ArrayList<Transaction> getTransactions() {
-		return transactions;
-	}
-
-	public void setTransactions(ArrayList<Transaction> transactions) {
-		this.transactions = transactions;
-	}
-	
-	//Rest of functions
-	public void addTransaction(Transaction transaction){
-		this.transactions.add(transaction);
 	}
 }
