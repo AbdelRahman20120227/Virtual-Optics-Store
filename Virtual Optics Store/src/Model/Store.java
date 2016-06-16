@@ -17,9 +17,12 @@ public class Store {
 	int ID;
 	private String phone;
 	private String address;
-	@OneToMany (mappedBy = "Store" , cascade = CascadeType.PERSIST)
+	@OneToMany (mappedBy = "Store" , cascade = CascadeType.ALL)
 	private ArrayList<Admin> admins;
+	@OneToMany (mappedBy = "Store" , cascade = CascadeType.ALL)
+	private ArrayList<Glasses_Store> glasses;
 	
+
 	//Constructors
 	public Store() {
 		super();
@@ -66,7 +69,18 @@ public class Store {
 		this.admins = admins;
 	}
 	
+	public ArrayList<Glasses_Store> getGlasses() {
+		return glasses;
+	}
+
+	public void setGlasses(ArrayList<Glasses_Store> glasses) {
+		this.glasses = glasses;
+	}
 	
+	//Rest of functions
+	public void addGlasses(Glasses_Store glasses){
+		this.glasses.add(glasses);
+	}
 	
 	
 	

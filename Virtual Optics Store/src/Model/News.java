@@ -1,12 +1,14 @@
 package Model;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class News {
 	
 	private int ID;
 	private String content;
+	@ManyToOne
 	private Admin admin;
 	
 	//Constructors

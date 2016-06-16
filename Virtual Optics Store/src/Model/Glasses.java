@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -22,11 +23,14 @@ public class Glasses {
 	private int type;
 	private String material;
 	private int price;
+	@ManyToOne
 	private Brand brand;
 	@OneToMany(mappedBy= "Glasses", cascade = CascadeType.ALL)
 	ArrayList<Attempt>attempts;
 	@OneToMany(mappedBy= "Glasses", cascade = CascadeType.ALL)
 	ArrayList<Transaction> transactions;
+	@OneToMany(mappedBy = "Glasses", cascade = CascadeType.ALL)
+	ArrayList<Glasses_Store> stores;
 	
 	// Constructors
 	public Glasses(){
@@ -114,7 +118,12 @@ public class Glasses {
 	public void setBrand(Brand brand) {
 		this.brand = brand;
 	}
-	
+	public ArrayList<Glasses_Store> getStore(){
+		return this.stores;
+	}
+	public void setStores(ArrayList<Glasses_Store> stores){
+		this.stores = stores;
+	}
 	//Rest of methods
 	public void addAttempt(Attempt attempt){
 		this.attempts.add(attempt);
@@ -122,5 +131,8 @@ public class Glasses {
 	}
 	public void addTransaction(Transaction transaction){
 		this.transactions.add(transaction);
+	}
+	public void addStore(Glasses_Store store){
+		this.stores.add(store);
 	}
 }
