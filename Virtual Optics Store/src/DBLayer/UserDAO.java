@@ -41,4 +41,21 @@ public class UserDAO {
 		}
 		return null;
 	}
+	
+	public static boolean getCustomerByEmail(String email){
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory(Globals.persistenceUnitName);
+		EntityManager manager = factory.createEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
+		transaction.begin();
+		Query query = manager.createQuery("select c from Customer c where c.email = :param1");
+		query.setParameter("param1", email);
+		List<Customer> result = query.getResultList();
+		transaction.commit();
+		manager.close();
+		factory.close();
+		if(result.size() > 0){
+			return true;
+		}
+		return false;
+	}
 }

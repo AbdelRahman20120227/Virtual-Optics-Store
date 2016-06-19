@@ -1,7 +1,9 @@
 package Services;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -20,28 +22,32 @@ public class CustomerServices {
 	}
 	@Produces("text/plain")
 	@Path("/addCustomer")
-	@GET
-	public String addCustomer(@Context HttpServletRequest request){
-		String fName = request.getParameter("fName");
-		String lName = request.getParameter("lName");
-		String password = request.getParameter("password");
-		String phone = request.getParameter("phone");
-		String address = request.getParameter("address");
-		String gender = request.getParameter("gender");
-		double leftSight = Double.valueOf(request.getParameter("leftSight"));
-		double rightSight = Double.valueOf(request.getParameter("rightSight"));
-		String email = request.getParameter("email");
-		Customer customer = new Customer(fName, lName, password, phone, address, gender, leftSight, rightSight, email);
+	@POST
+	public String addCustomer(@FormParam("fname") String fname,@FormParam("lname") String lname,@FormParam("email") String email,@FormParam("password") String password
+			,@FormParam("address") String address,@FormParam("phone") String phone,@FormParam("gender") String gender){
+		Customer customer = new Customer(fname, lname, password, phone, address, gender,3,3, email);
 		boolean done = UserDAO.createCustomer(customer);
 		return done ? "OK" : "Error";
 	}
 	@Produces("text/plain")
 	@Path("/searchCustomer")
-	@GET
-	public String searchCustomer(@Context HttpServletRequest request){
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
+	@POST
+	public String searchCustomer(@FormParam("email") String email,@FormParam("password") String password){
+		System.out.println(email + " " + password);
 		if(UserDAO.getCustomerByEmailAndPassword(email, password) != null){
+			return "found";
+		}
+		else{
+			return "not found";
+		}
+	}
+	
+	@Produces("text/plain")
+	@Path("/searchCustomerByEmail")
+	@POST
+	public String searchCustomerByEmail(@FormParam("email") String email){
+		System.out.println(email);
+		if(UserDAO.getCustomerByEmail(email)){
 			return "found";
 		}
 		else{
