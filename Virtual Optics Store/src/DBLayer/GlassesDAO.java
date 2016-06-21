@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import com.mysql.jdbc.Connection;
 
@@ -35,7 +36,7 @@ public class GlassesDAO {
 
 		Glasses glasses2 = entityManager.find(Glasses.class, glasses.getID());
 		entityManager.getTransaction().begin();
-		
+
 		// .......... update fields
 
 		entityManager.getTransaction().commit();
@@ -44,8 +45,23 @@ public class GlassesDAO {
 
 	}
 
-	public static ArrayList<String> getGlasses() {
-		
+	public static ArrayList<Glasses> getGlasses() {
+		EntityManagerFactory factory = Persistence
+				.createEntityManagerFactory(PRESISTENCE_UNIT_NAME);
+		EntityManager manager = factory.createEntityManager();
+		Query query = manager.createQuery("Select g from Glasses g");
+		ArrayList<Glasses> glasses = (ArrayList<Glasses>) query.getResultList();
+		manager.close();
+		factory.close();
+		return glasses;
+	}
+
+	public static ArrayList<String> getGlassesByBrand(String brand) {
+
+		return null;
+	}
+
+	public static ArrayList<String> getGlassesByPrice(int low, int high) {
 
 		return null;
 	}
