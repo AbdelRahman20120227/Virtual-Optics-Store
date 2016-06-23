@@ -7,9 +7,8 @@ import javax.persistence.Persistence;
 import Model.Store;
 
 public class StoreDAO {
-	private static final String PRESISTENCE_UNIT_NAME = "X";
 		public static void addStore(Store store){
-			EntityManagerFactory factory = Persistence.createEntityManagerFactory(PRESISTENCE_UNIT_NAME);
+			EntityManagerFactory factory = Persistence.createEntityManagerFactory(Globals.persistenceUnitName);
 			EntityManager manager = factory.createEntityManager();
 			manager.getTransaction().begin();
 			manager.persist(store);
@@ -18,7 +17,7 @@ public class StoreDAO {
 			factory.close();
 		}
 		public static void updateStore(Store store){
-			EntityManagerFactory factory = Persistence.createEntityManagerFactory(PRESISTENCE_UNIT_NAME);
+			EntityManagerFactory factory = Persistence.createEntityManagerFactory(Globals.persistenceUnitName);
 			EntityManager manager = factory.createEntityManager();
 			Store store1 = manager.find(Store.class, store.getID());
 			manager.getTransaction().begin();

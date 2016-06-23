@@ -22,12 +22,12 @@ public class Glasses {
 	private String shape;
 	private int type;
 	private String material;
-	private int price;
+	private double price;
 	@ManyToOne
 	private Brand brand;
-	@OneToMany(mappedBy= "Glasses", cascade = CascadeType.ALL)
-	ArrayList<Attempt>attempts;
-	@OneToMany(mappedBy= "Glasses", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "Glasses", cascade = CascadeType.ALL)
+	ArrayList<Attempt> attempts;
+	@OneToMany(mappedBy = "Glasses", cascade = CascadeType.ALL)
 	ArrayList<Transaction> transactions;
 	@OneToMany(mappedBy = "Glasses", cascade = CascadeType.ALL)
 	ArrayList<Glasses_Store> stores;
@@ -36,10 +36,9 @@ public class Glasses {
 	public Glasses(){
 		super();
 	}
-	public Glasses(int ID, String color, String modelName, String model,
-			int convertable, String shape, int type, String material, int price,Brand brand) {
+	public Glasses(String color, String modelName, String model,
+			int convertable, String shape, int type, String material, double price,Brand brand) {
 		super();
-		this.ID = ID;
 		this.color = color;
 		this.modelName = modelName;
 		this.model = model;
@@ -105,10 +104,10 @@ public class Glasses {
 	public void setMaterial(String material) {
 		this.material = material;
 	}
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -124,6 +123,7 @@ public class Glasses {
 	public void setStores(ArrayList<Glasses_Store> stores){
 		this.stores = stores;
 	}
+	
 	//Rest of methods
 	public void addAttempt(Attempt attempt){
 		this.attempts.add(attempt);

@@ -31,16 +31,16 @@ public class Brand {
 	}
 
 	// Setters and Getters
-	public int getbId() {
+	public int getID() {
 		return ID;
 	}
-	public void setbId(int ID) {
+	public void setID(int ID) {
 		this.ID = ID;
 	}
-	public String getbName() {
+	public String getName() {
 		return name;
 	}
-	public void setbName(String Name) {
+	public void setName(String Name) {
 		this.name = Name;
 	}
 	public ArrayList<Glasses> getGlasses() {
@@ -49,10 +49,10 @@ public class Brand {
 	public void setGlasses(ArrayList<Glasses> glasses) {
 		this.glasses = glasses;
 	}
-	public String getbCountry() {
+	public String getCountry() {
 		return country;
 	}
-	public void setbCountry(String Country) {
+	public void setCountry(String Country) {
 		this.country = Country;
 	}
 	
