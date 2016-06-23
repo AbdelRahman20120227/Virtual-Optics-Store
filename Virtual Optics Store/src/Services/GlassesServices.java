@@ -1,6 +1,7 @@
 package Services;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -25,7 +26,10 @@ public class GlassesServices {
 	@Path("getGlasses")
 	@GET
 	public String getGlasses(){
-		ArrayList<Glasses> glasses = GlassesDAO.getGlasses();
+		List<Glasses> glasses1 = GlassesDAO.getGlasses();
+		ArrayList<Glasses> glasses = new ArrayList<Glasses>();
+		for(int i=0;i<glasses1.size();i++)
+			glasses.add(glasses1.get(i));
 		try {
 			JSONObject obj = JsonParser.prepareGlassesJSON(glasses);
 			return obj.toString();
