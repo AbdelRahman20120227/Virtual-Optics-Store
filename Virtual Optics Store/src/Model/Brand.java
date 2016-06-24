@@ -23,9 +23,8 @@ public class Brand {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Brand(int ID, String name, String country) {
+	public Brand(String name, String country) {
 		super();
-		this.ID = ID;
 		this.name = name;
 		this.country = country;
 	}

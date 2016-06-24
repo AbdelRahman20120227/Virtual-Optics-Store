@@ -1,22 +1,22 @@
 package Services;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.GET;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import DBLayer.BrandDAO;
 import DBLayer.GlassesDAO;
@@ -27,9 +27,9 @@ import Model.Glasses;
 
 @Path("/admin")
 public class AdminServices {
-	
-	
+	@POST
 	@Path("/addNewGlasses")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public String addNewGlasses(@Context ServletContext context, @Context HttpServletRequest request){
 		
 		DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -41,7 +41,7 @@ public class AdminServices {
 			FileItem file = null;
 			for(FileItem item : items){
 				if(item.isFormField()){
-					fields.put(item.getName(), item.getString());
+					fields.put(item.getFieldName(), item.getString());
 				}
 				else{
 					file = item;
@@ -59,38 +59,33 @@ public class AdminServices {
 				int type = Integer.parseInt(fields.get("type"));
 				String material = fields.get("material");
 				double price = Double.parseDouble(fields.get("price"));
-				
 				Brand brand = BrandDAO.getBrandByName(brandName);
 				if(brand == null){
 					return Globals.BRAND_NOT_EXIST;
 				}
 				if(GlassesDAO.getGlassesByModelName(modelName) == null){
-					String path = context.getRealPath("") + File.separator + "Glasses"
+					String firstPathPart = context.getRealPath("") + File.separator;
+					String secondPathPart = "Glasses"
 							+ File.separator + brandName + File.separator + file.getName();
-					FileUtilities.saveFile(path, file.getInputStream());
-					Glasses glasses = new Glasses(color, modelName, path, convertable, shape, type, material, price, brand);
+					FileUtilities.saveFile(firstPathPart + secondPathPart, file.getInputStream());
+					Glasses glasses = new Glasses(color, modelName, secondPathPart, convertable, shape, type, material, price, brand);
 					GlassesDAO.addGlasses(glasses);
 					return Globals.SUCCESS;
 				}
 				else{
-					return Globals.GLASSES_ALREADY_EXIST;
+					return Globals.ALREADY_EXIST;
 				}
 			}
 		} catch (Exception e) {
 			return Globals.FILE_PROBLEM;
 		}
 	}
-	
-	@Path("getGlasses")
-	@GET
-	public String getGlasses(){
-		ArrayList<Glasses> glasses = GlassesDAO.getGlasses();
-		try {
-			JSONObject obj = JsonParser.prepareGlassesJSON(glasses);
-			return obj.toString();
-		} catch (JSONException e) {
-			return Globals.PARSING_ERROR;
-		}
-		
+
+	@Path("/addNewBrand")
+	@POST
+	public String addNewBrand(@FormParam("brandName") String brandName, 
+			@FormParam("country") String country){
+		Brand brand = new Brand(brandName, country);
+		return BrandDAO.addBrand(brand) ? Globals.SUCCESS : Globals.ALREADY_EXIST;
 	}
 }

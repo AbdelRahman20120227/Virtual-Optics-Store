@@ -11,13 +11,7 @@ import Model.Customer;
 
 @Path("/customer")
 public class CustomerServices {
-	@Produces("text/plain")
-	@Path("/test")
-	@GET
-	public String test(){
-		System.out.println("jdjfdjfj");
-		return "jndjknfjk";
-	}
+	
 	@Produces("text/plain")
 	@Path("/addCustomer")
 	@POST

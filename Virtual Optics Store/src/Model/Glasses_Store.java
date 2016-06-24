@@ -30,8 +30,8 @@ public class Glasses_Store {
 	}
 	public Glasses_Store(Glasses glasses, Store store, int quantity) {
 		super();
-		this.glasses = glasses;
-		this.store = store;
+		this.setGlasses(glasses);
+		this.setStore(store);
 		this.quantity = quantity;
 	}
 	//Setters and Getters

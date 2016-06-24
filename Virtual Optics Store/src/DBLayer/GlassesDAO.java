@@ -39,23 +39,6 @@ public class GlassesDAO {
 		}
 	}
 
-	public static void updateGlasses(Glasses glasses) {
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory(Globals.persistenceUnitName);
-		EntityManager entityManager = entityManagerFactory
-				.createEntityManager();
-
-		Glasses glasses2 = entityManager.find(Glasses.class, glasses.getID());
-		entityManager.getTransaction().begin();
-
-		// .......... update fields
-
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		entityManagerFactory.close();
-
-	}
-
 	public static ArrayList<Glasses> getGlasses() {
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory(Globals.persistenceUnitName);
@@ -67,13 +50,39 @@ public class GlassesDAO {
 		return (ArrayList<Glasses>)glasses;
 	}
 	
+	public static void updateGlasses(Glasses glasses){
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory(Globals.persistenceUnitName);
+		EntityManager manager = factory.createEntityManager();
+		manager.getTransaction().begin();
+		
+		manager.persist(glasses);
+		
+		manager.getTransaction().commit();
+		manager.close();
+		factory.close();
+	}
+	public static Glasses getGlassesByID(int ID){
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory(Globals.persistenceUnitName);
+		EntityManager manager = factory.createEntityManager();
+		manager.getTransaction().begin();
+		
+		Query query = manager.createQuery("select g from Glasses g where g.ID = :param1");
+		query.setParameter("param1", ID);
+		List<Glasses> glasses = query.getResultList(); 
+		
+		manager.getTransaction().commit();
+		manager.close();
+		factory.close();
+		return (glasses.size() == 0) ? null : glasses.get(0);
+		
+	}
 	public static Glasses getGlassesByModelName(String name){
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory(Globals.persistenceUnitName);
 		EntityManager manager = factory.createEntityManager();
 		
 		manager.getTransaction().begin();
 		
-		Query query = manager.createQuery("select g from Glasses g where modelName = :param1");
+		Query query = manager.createQuery("select g from Glasses g where g.modelName = :param1");
 		query.setParameter("param1", name);
 		List<Glasses> result = query.getResultList();
 		

@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import Model.Admin;
 import Model.Customer;
 
 public class UserDAO {
@@ -66,5 +67,42 @@ public class UserDAO {
 			return true;
 		}
 		return false;
+	}
+	public static void updateAdmin(Admin admin){
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory(Globals.persistenceUnitName);
+		EntityManager manager = factory.createEntityManager();
+		manager.getTransaction().begin();
+		
+		manager.persist(admin);
+		
+		manager.getTransaction().commit();
+		manager.close();
+		factory.close();
+	}
+	public static Admin getAdminByUserNameAndPassword(String userName, String password){
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory(Globals.persistenceUnitName);
+		EntityManager manager = factory.createEntityManager();
+		manager.getTransaction().begin();
+		
+		Query query = manager.createQuery("select a from Admin a where a.userName = :param1"
+				+ " and a.password = :param2");
+		query.setParameter("param1", userName);
+		query.setParameter("param2", password);
+		List<Admin> result = query.getResultList();
+		
+		manager.getTransaction().commit();
+		return (result.size() == 0) ? null : result.get(0);
+	}
+	public static Admin getAdminByUserName(String userName){
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory(Globals.persistenceUnitName);
+		EntityManager manager = factory.createEntityManager();
+		manager.getTransaction().begin();
+		
+		Query query = manager.createQuery("select a from Admin a where a.userName = :param1");
+		query.setParameter("param1", userName);
+		List<Admin> result = query.getResultList();
+		
+		manager.getTransaction().commit();
+		return (result.size() == 0) ? null : result.get(0);
 	}
 }

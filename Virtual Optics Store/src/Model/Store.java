@@ -28,9 +28,8 @@ public class Store {
 		super();
 	}
 
-	public Store(int ID, String phone, String address, ArrayList<Admin> admins) {
+	public Store(String phone, String address, ArrayList<Admin> admins) {
 		super();
-		this.ID = ID;
 		this.phone = phone;
 		this.address = address;
 		this.admins = admins;
