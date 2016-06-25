@@ -6,6 +6,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import DBLayer.Globals;
 import DBLayer.UserDAO;
 import Model.Customer;
 
@@ -35,12 +36,12 @@ public class CustomerServices {
 	@Path("/getCustomerByEmail")
 	@POST
 	public String getCustomerByEmail(@FormParam("email") String email){
-		System.out.println(email);
-		if(UserDAO.getCustomerByEmail(email)){
-			return "found";
+		Customer customer = UserDAO.getCustomerByEmail(email);
+		if(customer != null){
+			return Globals.SUCCESS;
 		}
 		else{
-			return "not found";
+			return Globals.SUCCESS;
 		}
 	}
 }

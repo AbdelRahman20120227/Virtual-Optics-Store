@@ -61,6 +61,7 @@ public class GlassesDAO {
 		manager.close();
 		factory.close();
 	}
+	
 	public static Glasses getGlassesByID(int ID){
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory(Globals.persistenceUnitName);
 		EntityManager manager = factory.createEntityManager();
@@ -76,6 +77,7 @@ public class GlassesDAO {
 		return (glasses.size() == 0) ? null : glasses.get(0);
 		
 	}
+	
 	public static Glasses getGlassesByModelName(String name){
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory(Globals.persistenceUnitName);
 		EntityManager manager = factory.createEntityManager();
@@ -92,13 +94,5 @@ public class GlassesDAO {
 		
 		return (result.size() == 0) ? null : result.get(0);
 	}
-	public static ArrayList<String> getGlassesByBrand(String brand) {
-
-		return null;
-	}
-
-	public static ArrayList<String> getGlassesByPrice(int low, int high) {
-
-		return null;
-	}
+	
 }

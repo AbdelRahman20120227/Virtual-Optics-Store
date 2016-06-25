@@ -1,6 +1,7 @@
 package Services;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
@@ -17,16 +19,37 @@ import javax.ws.rs.core.MediaType;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import DBLayer.BrandDAO;
 import DBLayer.GlassesDAO;
 import DBLayer.Globals;
+import DBLayer.StoreDAO;
+import DBLayer.UserDAO;
+import Model.Admin;
 import Model.Brand;
 import Model.Glasses;
+import Model.Store;
 
 
 @Path("/admin")
 public class AdminServices {
+	
+	@POST
+	@Path("/signup")
+	public String signup(@FormParam("fname") String fName,@FormParam("lname") String lName,@FormParam("userName") String userName,@FormParam("password") String password
+			,@FormParam("address") String address,@FormParam("phone") String phone,@FormParam("gender") String gender, 
+			@FormParam("store") String storeAddress){
+		Store store = StoreDAO.getStoreByAddress(storeAddress);
+		if(store == null){
+			return Globals.STORE_NOT_EXIST;
+		}
+		Admin admin = new Admin(fName, lName, password, phone, address, gender, userName, store);
+		return UserDAO.createAdmin(admin) ? Globals.SUCCESS : Globals.ALREADY_EXIST;
+		
+	}
+	
 	@POST
 	@Path("/addNewGlasses")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -66,7 +89,7 @@ public class AdminServices {
 				if(GlassesDAO.getGlassesByModelName(modelName) == null){
 					String firstPathPart = context.getRealPath("") + File.separator;
 					String secondPathPart = "Glasses"
-							+ "/" + brandName + "/" + file.getName();
+							+ File.separator + brandName + File.separator + file.getName();
 					FileUtilities.saveFile(firstPathPart + secondPathPart, file.getInputStream());
 					Glasses glasses = new Glasses(color, modelName, secondPathPart, convertable, shape, type, material, price, brand);
 					GlassesDAO.addGlasses(glasses);
@@ -77,7 +100,6 @@ public class AdminServices {
 				}
 			}
 		} catch (Exception e) {
-			System.out.println("dfjhdgfhsj");
 			return Globals.FILE_PROBLEM;
 		}
 	}
@@ -90,12 +112,17 @@ public class AdminServices {
 		return BrandDAO.addBrand(brand) ? Globals.SUCCESS : Globals.ALREADY_EXIST;
 	}
 	
-
-	@POST
-	@Path("/signup")
-	public String signup(@FormParam("fname") String fname,@FormParam("lname") String lname,@FormParam("userName") String userName,@FormParam("password") String password
-			,@FormParam("address") String address,@FormParam("phone") String phone,@FormParam("gender") String gender, 
-			@FormParam("store") String store){
-		
+	@Path("/getBrands")
+	@GET
+	public String getBrands(){
+		List<Brand> brands = BrandDAO.getBrands();
+		ArrayList<Brand> newBrands = new ArrayList<Brand>(brands);
+		JSONObject obj;
+		try {
+			obj = JsonParser.prepareBrandJSON(newBrands);
+			return obj.toString();
+		} catch (JSONException e) {
+			return Globals.PARSING_ERROR;
+		}
 	}
 }

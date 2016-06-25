@@ -26,6 +26,7 @@ public class BrandDAO {
 		}
 		return false;
 	}
+	
 	public static Brand getBrandByName(String name){
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory(Globals.persistenceUnitName);
 		EntityManager manager = factory.createEntityManager();
@@ -40,5 +41,19 @@ public class BrandDAO {
 		factory.close();
 		
 		return (result.size() == 0) ? null : result.get(0); 
+	}
+	
+	public static List<Brand> getBrands(){
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory(Globals.persistenceUnitName);
+		EntityManager manager = factory.createEntityManager();
+		manager.getTransaction().begin();
+		
+		Query query = manager.createQuery("select b from brand b");
+		List<Brand> result = query.getResultList();
+		
+		manager.getTransaction().commit();
+		manager.close();
+		factory.close();
+		return result;
 	}
 }

@@ -26,12 +26,10 @@ public class GlassesServices {
 	@Path("getGlasses")
 	@GET
 	public String getGlasses(){
-		List<Glasses> glasses1 = GlassesDAO.getGlasses();
-		ArrayList<Glasses> glasses = new ArrayList<Glasses>();
-		for(int i=0;i<glasses1.size();i++)
-			glasses.add(glasses1.get(i));
+		List<Glasses> glasses = GlassesDAO.getGlasses();
+		ArrayList<Glasses> newGlasses = new ArrayList<Glasses>(glasses);
 		try {
-			JSONObject obj = JsonParser.prepareGlassesJSON(glasses);
+			JSONObject obj = JsonParser.prepareGlassesJSON(newGlasses);
 			return obj.toString();
 		} catch (JSONException e) {
 			return Globals.PARSING_ERROR;
