@@ -88,4 +88,13 @@ public class AdminServices {
 		Brand brand = new Brand(brandName, country);
 		return BrandDAO.addBrand(brand) ? Globals.SUCCESS : Globals.ALREADY_EXIST;
 	}
+	
+
+	@POST
+	@Path("/signup")
+	public String signup(@FormParam("fname") String fname,@FormParam("lname") String lname,@FormParam("userName") String userName,@FormParam("password") String password
+			,@FormParam("address") String address,@FormParam("phone") String phone,@FormParam("gender") String gender, 
+			@FormParam("store") String store){
+		
+	}
 }
