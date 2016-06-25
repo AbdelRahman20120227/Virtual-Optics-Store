@@ -39,7 +39,7 @@ public class GlassesDAO {
 		}
 	}
 
-	public static ArrayList<Glasses> getGlasses() {
+	public static List<Glasses> getGlasses() {
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory(Globals.persistenceUnitName);
 		EntityManager manager = factory.createEntityManager();
@@ -47,7 +47,7 @@ public class GlassesDAO {
 		List<Glasses> glasses = query.getResultList();
 		manager.close();
 		factory.close();
-		return (ArrayList<Glasses>)glasses;
+		return glasses;
 	}
 	
 	public static void updateGlasses(Glasses glasses){

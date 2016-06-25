@@ -22,6 +22,7 @@ public class BrandDAO {
 			manager.getTransaction().commit();
 			manager.close();
 			factory.close();
+			return true;
 		}
 		return false;
 	}
