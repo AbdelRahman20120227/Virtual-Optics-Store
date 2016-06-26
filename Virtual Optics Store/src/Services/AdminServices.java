@@ -87,9 +87,9 @@ public class AdminServices {
 					return Globals.BRAND_NOT_EXIST;
 				}
 				if(GlassesDAO.getGlassesByModelName(modelName) == null){
-					String firstPathPart = context.getRealPath("") + File.separator;
+					String firstPathPart = context.getRealPath("") + "/";
 					String secondPathPart = "Glasses"
-							+ File.separator + brandName + File.separator + file.getName();
+							+ "/" + brandName + "/" + file.getName();
 					FileUtilities.saveFile(firstPathPart + secondPathPart, file.getInputStream());
 					Glasses glasses = new Glasses(color, modelName, secondPathPart, convertable, shape, type, material, price, brand);
 					GlassesDAO.addGlasses(glasses);
