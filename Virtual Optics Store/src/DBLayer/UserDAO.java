@@ -26,10 +26,10 @@ public class UserDAO {
 			manager.close();
 			factory.close();
 		}
-		
+		else{
 		manager.getTransaction().commit();
 		manager.close();
-		factory.close();
+		factory.close();}
 		return false;
 	}
 	

@@ -48,12 +48,26 @@ public class BrandDAO {
 		EntityManager manager = factory.createEntityManager();
 		manager.getTransaction().begin();
 		
-		Query query = manager.createQuery("select b from brand b");
+		Query query = manager.createQuery("select b from Brand b");
 		List<Brand> result = query.getResultList();
 		
 		manager.getTransaction().commit();
 		manager.close();
 		factory.close();
 		return result;
+	}
+	public static Brand getBrandsByName(String name){
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory(Globals.persistenceUnitName);
+		EntityManager manager = factory.createEntityManager();
+		manager.getTransaction().begin();
+		
+		Query query = manager.createQuery("select b from brand b where b.name = :param1");
+		query.setParameter("param1", name);
+		List<Brand> result = query.getResultList();
+		
+		manager.getTransaction().commit();
+		manager.close();
+		factory.close();
+		return result.get(0);
 	}
 }
