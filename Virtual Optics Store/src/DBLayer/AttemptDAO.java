@@ -10,6 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import Model.Attempt;
 import Model.Brand;
 import Model.Customer;
 import Model.Glasses;
@@ -67,5 +68,15 @@ public class AttemptDAO {
 	 manager.close();
 	 factory.close();
 	 return glasses;
+ }
+ public static boolean addAttempt(Attempt atm){
+	 EntityManagerFactory factory = Persistence.createEntityManagerFactory(Globals.persistenceUnitName);
+	 EntityManager manager = factory.createEntityManager();
+	 manager.getTransaction().begin();
+	 manager.persist(atm);
+	 manager.getTransaction().commit();
+	 manager.close();
+	 factory.close();
+	 return true;
  }
 }

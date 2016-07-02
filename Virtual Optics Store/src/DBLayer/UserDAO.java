@@ -25,12 +25,13 @@ public class UserDAO {
 			manager.getTransaction().commit();
 			manager.close();
 			factory.close();
+			return true;
 		}
 		else{
 		manager.getTransaction().commit();
 		manager.close();
-		factory.close();}
-		return false;
+		factory.close();
+		return false;}
 	}
 	
 	public static void updateCustomer(Customer customer){
