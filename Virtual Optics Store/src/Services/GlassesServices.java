@@ -38,13 +38,12 @@ public class GlassesServices {
 	
 	@Path("addStoreToGlasses")
 	@POST
-	public String addStoreToGlasses(@FormParam("store") int storeID, 
-			@FormParam("glassesID") int glassesID, @FormParam("adminUserName") String userName,
+	public String addStoreToGlasses(@FormParam("glassesID") int glassesID, @FormParam("adminUserName") String userName,
 			@FormParam("quantity") int quantity){
 		
 		Glasses glasses = GlassesDAO.getGlassesByID(glassesID);
-		Store store = StoreDAO.getStoreByID(storeID);
 		Admin admin = UserDAO.getAdminByUserName(userName);
+		Store store = admin.getStore();
 		ArrayList<Glasses_Store> stores = glasses.getStore();
 		for(Glasses_Store gs : stores){
 			// if glasses already in store
@@ -55,7 +54,6 @@ public class GlassesServices {
 					if(aq.getAdmin().getUserName().equals(userName)){
 						aq.setQuantity(aq.getQuantity() + quantity);
 						GlassesDAO.updateGlasses(glasses);
-						UserDAO.updateAdmin(admin);
 						return Globals.SUCCESS;
 					}
 				}
@@ -65,7 +63,6 @@ public class GlassesServices {
 				aq.setQuantity(quantity);
 				gs.addAdminGlasses(aq);
 				GlassesDAO.updateGlasses(glasses);
-				UserDAO.updateAdmin(admin);
 				return Globals.SUCCESS;
 			}
 		}
@@ -76,7 +73,6 @@ public class GlassesServices {
 		aq.setQuantity(quantity);
 		gs.addAdminGlasses(aq);
 		GlassesDAO.updateGlasses(glasses);
-		UserDAO.updateAdmin(admin);
 		return Globals.SUCCESS;
 	}
 }

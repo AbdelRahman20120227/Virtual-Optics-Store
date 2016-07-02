@@ -104,7 +104,7 @@ public class UserDAO {
 		EntityManager manager = factory.createEntityManager();
 		manager.getTransaction().begin();
 		
-		manager.persist(admin);
+		manager.merge(admin);
 		
 		manager.getTransaction().commit();
 		manager.close();

@@ -13,15 +13,15 @@ public class Admin_Quantity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int ID;
 	@ManyToOne
-	private Glasses_Store glasseStore;
-	@ManyToOne
 	private Admin admin;
+	@ManyToOne
+	private Glasses_Store glasses_store;
 	private int quantity;
 	
 	// Constructors
 	public Admin_Quantity(Glasses_Store glassesStore, Admin admin, int quantity) {
 		super();
-		this.glasseStore = glassesStore;
+		this.glasses_store = glassesStore;
 		this.admin = admin;
 		this.quantity = quantity;
 	}
@@ -32,10 +32,10 @@ public class Admin_Quantity {
 	
 	//Setters and Getters
 	public Glasses_Store getGlassesStore() {
-		return glasseStore;
+		return glasses_store;
 	}
 	public void setGlassesStore(Glasses_Store glassesStore) {
-		this.glasseStore = glassesStore;
+		this.glasses_store = glassesStore;
 	}
 	public Admin getAdmin() {
 		return admin;

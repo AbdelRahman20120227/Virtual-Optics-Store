@@ -34,6 +34,7 @@ public class StoreDAO {
 			manager.getTransaction().begin();
 			
 			Query query = manager.createQuery("select s from Store s where s.address = :param1");
+			query.setParameter("param1", address);
 			List<Store> result = query.getResultList();
 			
 			manager.getTransaction().commit();
