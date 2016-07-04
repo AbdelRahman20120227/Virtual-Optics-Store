@@ -1,6 +1,5 @@
 package Services;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -119,7 +118,7 @@ public class AdminServices {
 		ArrayList<Brand> newBrands = new ArrayList<Brand>(brands);
 		JSONObject obj;
 		try {
-			obj = JsonParser.prepareBrandJSON(newBrands);
+			obj = JsonParser.prepareBrandsJSON(newBrands);
 			return obj.toString();
 		} catch (JSONException e) {
 			return Globals.PARSING_ERROR;

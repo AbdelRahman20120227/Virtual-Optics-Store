@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import Model.Brand;
+import Model.Customer;
 import Model.Glasses;
 
 public class JsonParser {
@@ -29,7 +30,7 @@ public class JsonParser {
 		
 		return obj;
 	}
-	public static JSONObject prepareBrandJSON(ArrayList<Brand> brands) throws JSONException{
+	public static JSONObject prepareBrandsJSON(ArrayList<Brand> brands) throws JSONException{
 		ArrayList<String> names = new ArrayList<String>();
 		ArrayList<String> countries = new ArrayList<String>();
 		for(Brand b : brands){
@@ -40,6 +41,18 @@ public class JsonParser {
 		obj.put("names", names);
 		obj.put("countries", countries);
 		
+		return obj;
+	}
+	public static JSONObject prepareCustomerJSON(Customer customer) throws JSONException{
+		JSONObject obj = new JSONObject();
+		obj.put("fname", customer.getfName());
+		obj.put("lname", customer.getlName());
+		obj.put("ID", customer.getID());
+		obj.put("email", customer.getEmail());
+		obj.put("password", customer.getPassword());
+		obj.put("phone", customer.getPhone());
+		obj.put("address", customer.getAddress());
+		obj.put("gender", customer.getGender());
 		return obj;
 	}
 }

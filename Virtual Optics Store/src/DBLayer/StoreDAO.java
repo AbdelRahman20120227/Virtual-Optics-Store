@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import Model.Store;
 
 public class StoreDAO {
+	
 		public static boolean addStore(Store store){
 			EntityManagerFactory factory = Persistence.createEntityManagerFactory(Globals.persistenceUnitName);
 			EntityManager manager = factory.createEntityManager();
