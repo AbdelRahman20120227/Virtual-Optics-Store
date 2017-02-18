@@ -55,7 +55,7 @@ public class GlassesDAO {
 		EntityManager manager = factory.createEntityManager();
 		manager.getTransaction().begin();
 		
-		manager.persist(glasses);
+		manager.merge(glasses);
 		
 		manager.getTransaction().commit();
 		manager.close();

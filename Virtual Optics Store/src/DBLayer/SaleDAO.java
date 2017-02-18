@@ -8,7 +8,7 @@ import Model.Sale;
 import Model.Store;
 
 public class SaleDAO {
-	public static void addStore(Sale sale){
+	public static void addSale(Sale sale){
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory(Globals.persistenceUnitName);
 		EntityManager manager = factory.createEntityManager();
 		manager.getTransaction().begin();
@@ -17,14 +17,13 @@ public class SaleDAO {
 		manager.close();
 		factory.close();
 	}
-	public static void updateStore(Sale sale){
+	
+	public static void updateSale(Sale sale){
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory(Globals.persistenceUnitName);
 		EntityManager manager = factory.createEntityManager();
-		Sale sale1 = manager.find(Sale.class, sale.getSaleID());
 		manager.getTransaction().begin();
-       //store1.setAddress();            
-        
-       // update store
+
+		manager.merge(sale);
         
         manager.getTransaction().commit();
 		manager.close();

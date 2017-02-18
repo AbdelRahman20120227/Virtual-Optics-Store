@@ -2,6 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,9 +20,8 @@ public class Glasses_Store {
 	private Glasses glasses;
 	@ManyToOne
 	private Store store;
-	@OneToMany
+	@OneToMany(mappedBy = "glasses_store", cascade = CascadeType.ALL)
 	private ArrayList<Admin_Quantity> admins;
-	private int quantity;
 	
 	// Constructors
 	public Glasses_Store() {
@@ -30,9 +30,9 @@ public class Glasses_Store {
 	}
 	public Glasses_Store(Glasses glasses, Store store, int quantity) {
 		super();
+		this.admins = new ArrayList<Admin_Quantity>();
 		this.setGlasses(glasses);
 		this.setStore(store);
-		this.quantity = quantity;
 	}
 	//Setters and Getters
 	public Glasses getGlasses() {
@@ -54,12 +54,6 @@ public class Glasses_Store {
 	}
 	public void setAdminglasses(ArrayList<Admin_Quantity> admins) {
 		this.admins = admins;
-	}
-	public int getQuantity() {
-		return quantity;
-	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
 	}
 	
 	// rest of functions

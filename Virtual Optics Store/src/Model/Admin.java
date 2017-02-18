@@ -10,9 +10,9 @@ import javax.persistence.OneToMany;
 @Entity
 public class Admin extends User{
 	
-	@OneToMany (mappedBy = "Admin" , cascade = CascadeType.ALL)
+	@OneToMany (mappedBy = "admin" , cascade = CascadeType.ALL)
 	private ArrayList<News> news;
-	@OneToMany (mappedBy = "Admin" , cascade = CascadeType.ALL)
+	@OneToMany (mappedBy = "admin" , cascade = CascadeType.ALL)
 	private ArrayList<Admin_Quantity> glasses;
 	private String userName;
 	@ManyToOne

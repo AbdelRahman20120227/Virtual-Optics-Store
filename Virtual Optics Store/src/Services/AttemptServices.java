@@ -24,9 +24,9 @@ public class AttemptServices {
 	@POST
 	public String getRecommendations(@FormParam ("email") String email){
 		System.out.println("hereeeeeeeeee" + email);
-		List<Glasses>list = AttemptDAO.getRecommendations(email);
-		ArrayList<Glasses>glasses = new ArrayList<Glasses>(list);
 		try {
+			List<Glasses>list = AttemptDAO.getRecommendations(email);
+			ArrayList<Glasses>glasses = new ArrayList<Glasses>(list);
 			JSONObject json = JsonParser.prepareGlassesJSON(glasses);
 			return json.toString();
 		} catch (JSONException e) {

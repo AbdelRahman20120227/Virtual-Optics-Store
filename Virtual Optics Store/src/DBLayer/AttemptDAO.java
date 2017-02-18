@@ -35,6 +35,7 @@ public class AttemptDAO {
  public static String getMaxBrand(String email){
 	 Integer max = 0;
 	 String maxBrand="";
+	 try{
 	 List<Glasses>atms = AttemptDAO.getAttempts(email);
 		Map<String,Integer>brandCount = new HashMap<String,Integer>();
 		for(int i=0;i<atms.size();i++){
@@ -53,6 +54,9 @@ public class AttemptDAO {
 			}
 			System.out.println(brandCount.get(atms.get(i).getBrand().getName()));
 		}
+		 }catch(Exception e){
+				 
+		 }
 		return maxBrand;	
  }
  
