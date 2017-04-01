@@ -61,4 +61,17 @@ public class CustomerServices {
 			return Globals.USER_NOT_EXIST;
 		}
 	}
+	@Path("/update")
+	@POST
+	public String updateProfile(@FormParam("fname") String fname,@FormParam("lname") String lname,@FormParam("email") String email,@FormParam("password") String password
+			,@FormParam("address") String address,@FormParam("phone") String phone){
+		Customer customer = UserDAO.getCustomerByEmail(email);
+		customer.setfName(fname);
+		customer.setlName(lname);
+		customer.setPassword(password);
+		customer.setAddress(address);
+		customer.setPhone(phone);
+		UserDAO.updateCustomer(customer);
+		return Globals.SUCCESS;
+	}
 }
