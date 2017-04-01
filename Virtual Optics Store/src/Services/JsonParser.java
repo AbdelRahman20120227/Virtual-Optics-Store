@@ -16,17 +16,20 @@ public class JsonParser {
 		ArrayList<String> modelNames = new ArrayList<String>();
 		ArrayList<String> paths = new ArrayList<String>();
 		ArrayList<Double> prices = new ArrayList<Double>();
+		ArrayList<Integer> ids = new ArrayList<Integer>();
 		for(Glasses g : glasses){
 			brands.add(g.getBrand().getName());
 			modelNames.add(g.getModelName());
 			paths.add(g.getModel());
 			prices.add(g.getPrice());
+			ids.add(g.getID());
 		}
 		JSONObject obj = new JSONObject();
 		obj.put("brands", brands);
 		obj.put("modelNames", modelNames);
 		obj.put("paths", paths);
 		obj.put("prices", prices);
+		obj.put("ids", ids);
 		
 		return obj;
 	}
